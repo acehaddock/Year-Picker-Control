@@ -1,7 +1,7 @@
 import {IInputs, IOutputs} from "./generated/ManifestTypes";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { DatePicker, IDatePickerStrings, mergeStyleSets, DayOfWeek } from 'office-ui-fabric-react';
+import { DatePicker, IDatePickerStrings, DayOfWeek } from 'office-ui-fabric-react';
 
 export class YearPickerControl implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
@@ -52,6 +52,8 @@ export class YearPickerControl implements ComponentFramework.StandardControl<IIn
             this.notifyOutputChanged();
         }
     }
+
+    
     /**
      * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width, offline status, control metadata values such as label, visible, etc.
      * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
@@ -81,6 +83,7 @@ export class YearPickerControl implements ComponentFramework.StandardControl<IIn
         ReactDOM.unmountComponentAtNode(this.container);
     }
 }
+// Place the YearPicker component here
 interface IYearPickerProps {
     selectedYear: string;
     onSelectYear: (year: number) => void;
@@ -108,4 +111,22 @@ const YearPicker: React.FunctionComponent<IYearPickerProps> = (props) => {
         isRequiredErrorMessage: "Field is required.",
         invalidInputErrorMessage: "Invalid date format."
     };
+
+    return (
+        <div>
+            <DatePicker
+                label="Select Year"
+                value={selectedDate}
+                formatDate={date => `${date.getFullYear()}`}
+                strings={datePickerStrings}
+                allowTextInput={true}
+                showMonthPickerAsOverlay={true}
+                showWeekNumbers={false}
+                firstDayOfWeek={DayOfWeek.Sunday}
+                onSelectDate={onSelectDate}
+                ariaLabel="Select a year"
+            />
+        </div>
+    );
 };
+
