@@ -125,7 +125,7 @@ const YearPicker: React.FunctionComponent<IYearPickerProps> = (props) => {
     // Render the YearPicker control
     return (
         <div>
-            <DatePicker
+            <DatePicker>
                 label=""
                 value={selectedDate}
                 formatDate={date => `${date.getFullYear()}`}
