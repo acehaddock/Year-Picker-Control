@@ -50,22 +50,4 @@
     </feature-usage>
     -->
   </control>
-    <localized-resources>
-        <locatable-resource type="control">
-            <display-name resource="Control_DisplayName">
-                <value locale="1033">Year Picker</value>
-            </display-name>
-            <description resource="Control_Description">
-                <value locale="1033">A custom control for selecting a year.</value>
-            </description>
-            <property name="dateInput">
-                <display-name resource="Property_DateInput_DisplayName">
-                    <value locale="1033">Date Input</value>
-                </display-name>
-                <description resource="Property_DateInput_Description">
-                    <value locale="1033">The date input field to replace.</value>
-                </description>
-            </property>
-        </locatable-resource>
-    </localized-resources>
 </manifest>

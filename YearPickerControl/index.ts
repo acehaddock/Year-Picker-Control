@@ -38,7 +38,7 @@ export class YearPickerControl implements ComponentFramework.StandardControl<IIn
     public render(): void {
         ReactDOM.render(
             React.createElement(YearPicker, {
-                selectedYear: this.context.parameters.dateInput.raw,
+                selectedYear: this.context.parameters.dateInput.raw ? this.context.parameters.dateInput.raw.toString() : '', // Convert selected year to a string
                 onSelectYear: this.onSelectYear.bind(this)
             }),
             this.container
@@ -59,17 +59,17 @@ export class YearPickerControl implements ComponentFramework.StandardControl<IIn
      * @param year The selected year
      */
         private onSelectYear(year: number): void {
-            this.context.parameters.dateInput.raw = year.toString();
+            this.context.parameters.dateInput.raw = new Date(year, 0, 1);
             this.notifyOutputChanged();
         }
-    /**
-     * It is called by the framework prior to a control receiving new data.
-     * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as “bound” or “output”
-     */
-    public getOutputs(): IOutputs
-    {
-        return {};
-    }
+        /**
+         * It is called by the framework prior to a control receiving new data.
+         * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as “bound” or “output”
+         */
+        public getOutputs(): IOutputs
+        {
+            return {};
+        }
 
     /**
      * Called when the control is to be removed from the DOM tree. Controls should use this call for cleanup.
