@@ -1,6 +1,13 @@
 import {IInputs, IOutputs} from "./generated/ManifestTypes";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { DatePicker, IDatePickerStrings, mergeStyleSets, DayOfWeek } from 'office-ui-fabric-react';
 
 export class YearPickerControl implements ComponentFramework.StandardControl<IInputs, IOutputs> {
+
+    private notifyOutputChanged: () => void;
+    private container: HTMLDivElement;
+    private context: ComponentFramework.Context<IInputs>;
 
     /**
      * Empty constructor.
@@ -21,8 +28,22 @@ export class YearPickerControl implements ComponentFramework.StandardControl<IIn
     public init(context: ComponentFramework.Context<IInputs>, notifyOutputChanged: () => void, state: ComponentFramework.Dictionary, container:HTMLDivElement): void
     {
         // Add control initialization code
+        this.notifyOutputChanged = notifyOutputChanged;
+        this.container = container;
+        this.context = context;
     }
-
+    /**
+     * Method to render the control
+     */
+    public render(): void {
+        ReactDOM.render(
+            React.createElement(YearPicker, {
+                selectedYear: this.context.parameters.dateInput.raw,
+                onSelectYear: this.onSelectYear.bind(this)
+            }),
+            this.container
+        );
+    }
 
     /**
      * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width, offline status, control metadata values such as label, visible, etc.
@@ -31,8 +52,17 @@ export class YearPickerControl implements ComponentFramework.StandardControl<IIn
     public updateView(context: ComponentFramework.Context<IInputs>): void
     {
         // Add code to update control view
+        this.render();
     }
-
+    
+    /**
+     * Method to handle year selection
+     * @param year The selected year
+     */
+        private onSelectYear(year: number): void {
+            this.context.parameters.dateInput.raw = year.toString();
+            this.notifyOutputChanged();
+        }
     /**
      * It is called by the framework prior to a control receiving new data.
      * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as “bound” or “output”
@@ -49,5 +79,63 @@ export class YearPickerControl implements ComponentFramework.StandardControl<IIn
     public destroy(): void
     {
         // Add code to cleanup control if necessary
+        ReactDOM.unmountComponentAtNode(this.container);
     }
 }
+
+/**
+ * Interface for YearPicker properties
+ */
+interface IYearPickerProps {
+    selectedYear: string;
+    onSelectYear: (year: number) => void;
+}
+
+/**
+ * YearPicker component using Fluent UI DatePicker
+ */
+const YearPicker: React.FunctionComponent<IYearPickerProps> = (props) => {
+
+    // Convert selected year to a Date object
+    const selectedDate: Date = new Date(parseInt(props.selectedYear));
+
+    // Handler for date selection change
+    const onSelectDate = (date: Date | null | undefined) => {
+        if (date) {
+            const selectedYear = date.getFullYear();
+            props.onSelectYear(selectedYear);
+        }
+    };
+
+    // Customize DatePicker strings to only show year
+    const datePickerStrings: IDatePickerStrings = {
+        months: [],
+        shortMonths: [],
+        days: [],
+        shortDays: [],
+        goToToday: "",
+        prevMonthAriaLabel: "",
+        nextMonthAriaLabel: "",
+        prevYearAriaLabel: "",
+        nextYearAriaLabel: "",
+        isRequiredErrorMessage: "",
+        invalidInputErrorMessage: "",
+    };
+
+    // Render the YearPicker control
+    return (
+        <div>
+            <DatePicker
+                label=""
+                value={selectedDate}
+                formatDate={date => `${date.getFullYear()}`}
+                strings={datePickerStrings}
+                allowTextInput={false}
+                showMonthPickerAsOverlay={false}
+                showWeekNumbers={false}
+                firstDayOfWeek={DayOfWeek.Sunday}
+                onSelectDate={onSelectDate}
+            />
+        </div>
+    );
+};
