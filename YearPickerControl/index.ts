@@ -2,6 +2,8 @@ import {IInputs, IOutputs} from "./generated/ManifestTypes";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { DatePicker, IDatePickerStrings, DayOfWeek } from 'office-ui-fabric-react';
+import * as React from 'react';
+import { DatePicker, DayOfWeek, IDatePickerStrings } from 'office-ui-fabric-react/lib/DatePicker';
 
 export class YearPickerControl implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
@@ -112,12 +114,14 @@ const YearPicker: React.FunctionComponent<IYearPickerProps> = (props) => {
         invalidInputErrorMessage: "Invalid date format."
     };
 
+    // ...
+
     return (
         <div>
-            <DatePicker>
+            <DatePicker
                 label="Select Year"
                 value={selectedDate}
-                formatDate={date => `${date.getFullYear()}`}
+                formatDate={(date) => `${date.getFullYear()}`}
                 strings={datePickerStrings}
                 allowTextInput={true}
                 showMonthPickerAsOverlay={true}
@@ -125,7 +129,7 @@ const YearPicker: React.FunctionComponent<IYearPickerProps> = (props) => {
                 firstDayOfWeek={DayOfWeek.Sunday}
                 onSelectDate={onSelectDate}
                 ariaLabel="Select a year"
-            </DatePicker>
+            />
         </div>
     );
 };
