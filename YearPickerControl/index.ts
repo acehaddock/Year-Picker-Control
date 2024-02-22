@@ -4,7 +4,6 @@ import * as ReactDOM from "react-dom";
 import { DatePicker, IDatePickerStrings, DayOfWeek } from 'office-ui-fabric-react';
 import * as React from 'react';
 import { DatePicker, DayOfWeek, IDatePickerStrings } from 'office-ui-fabric-react/lib/DatePicker';
-import { DatePickerBase, IDatePickerStrings, DayOfWeek } from 'office-ui-fabric-react';
 
 export class YearPickerControl implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
@@ -117,7 +116,18 @@ const YearPicker: React.FunctionComponent<IYearPickerProps> = (props) => {
 
     return (
         <div>
-        <DatePicker label="Select Year" value={selectedDate} formatDate={(date) => `${date.getFullYear()}`} strings={datePickerStrings} allowTextInput={true} showMonthPickerAsOverlay={true} showWeekNumbers={false} firstDayOfWeek={DayOfWeek.Sunday} onSelectDate={onSelectDate} ariaLabel="Select a year" />
+        <DatePicker
+            label="Select Year",
+            value={selectedDate},
+            formatDate={(date) => `${date.getFullYear()}`},
+            strings={datePickerStrings},
+            allowTextInput={true},
+            showMonthPickerAsOverlay={true},
+            showWeekNumbers={false},
+            firstDayOfWeek={DayOfWeek.Sunday},
+            onSelectDate={onSelectDate},
+            ariaLabel="Select a year"
+        />
         </div>
     );
 };
