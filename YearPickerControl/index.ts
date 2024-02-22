@@ -4,6 +4,7 @@ import * as ReactDOM from "react-dom";
 import { DatePicker, IDatePickerStrings, DayOfWeek } from 'office-ui-fabric-react';
 import * as React from 'react';
 import { DatePicker, DayOfWeek, IDatePickerStrings } from 'office-ui-fabric-react/lib/DatePicker';
+import { DatePickerBase, IDatePickerStrings, DayOfWeek } from 'office-ui-fabric-react';
 
 export class YearPickerControl implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
@@ -113,8 +114,6 @@ const YearPicker: React.FunctionComponent<IYearPickerProps> = (props) => {
         isRequiredErrorMessage: "Field is required.",
         invalidInputErrorMessage: "Invalid date format."
     };
-
-    // ...
 
     return (
         <div>
