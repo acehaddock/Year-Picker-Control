@@ -2,8 +2,6 @@ import {IInputs, IOutputs} from "./generated/ManifestTypes";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { DatePicker, IDatePickerStrings, DayOfWeek } from 'office-ui-fabric-react';
-import * as React from 'react';
-import { DatePicker, DayOfWeek, IDatePickerStrings } from 'office-ui-fabric-react/lib/DatePicker';
 
 export class YearPickerControl implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
