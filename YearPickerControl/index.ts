@@ -118,18 +118,7 @@ const YearPicker: React.FunctionComponent<IYearPickerProps> = (props) => {
 
     return (
         <div>
-            <DatePicker
-                label="Select Year"
-                value={selectedDate}
-                formatDate={(date) => `${date.getFullYear()}`}
-                strings={datePickerStrings}
-                allowTextInput={true}
-                showMonthPickerAsOverlay={true}
-                showWeekNumbers={false}
-                firstDayOfWeek={DayOfWeek.Sunday}
-                onSelectDate={onSelectDate}
-                ariaLabel="Select a year"
-            />
+        <DatePicker label="Select Year" value={selectedDate} formatDate={(date) => `${date.getFullYear()}`} strings={datePickerStrings} allowTextInput={true} showMonthPickerAsOverlay={true} showWeekNumbers={false} firstDayOfWeek={DayOfWeek.Sunday} onSelectDate={onSelectDate} ariaLabel="Select a year" />
         </div>
     );
 };
