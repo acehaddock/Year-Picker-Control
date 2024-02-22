@@ -14,7 +14,7 @@ export class YearPickerControl implements ComponentFramework.StandardControl<IIn
      */
     constructor()
     {
-
+            // do nothing.
     }
 
     /**
